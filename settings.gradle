@@ -1,6 +1,9 @@
-pluginManagement {
-	repositories {
-		gradlePluginPortal()
-	}
-}
 rootProject.name = 'document-propagation'
+
+include ':document-propagation-client'
+include ':document-propagation-server'
+include ':document-propagation-commum'
+include ':document-propagation-spring-boot-starter'
+include ':document-propagation-spring-boot-autoconfigure'
+include ':document-propagation-example-hello'
+include ':document-propagation-example-world'

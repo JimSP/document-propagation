@@ -1,36 +1,42 @@
-plugins {
-	id 'org.springframework.boot' version '2.1.5.RELEASE'
-	id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'eclipse'
 
-apply plugin: 'io.spring.dependency-management'
+group = 'document-propagation'
+version = '0.0.1'
 
-group = 'br.com.cafebinario'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	//runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-	
-	compile 'io.springfox:springfox-swagger2:2.9.2'
-	compile 'io.springfox:springfox-swagger-ui:2.9.2'
-	
-	compile 'com.hazelcast:hazelcast:3.8.2'
-	compile 'com.hazelcast:hazelcast-spring:3.8.2'
-	
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile project(':document-propagation-client')
+	compile project(':document-propagation-server')
+    compile project(':document-propagation-commum')
+    compile project(':document-propagation-spring-boot-starter')
+	compile project(':document-propagation-spring-boot-autoconfigure')
+	compile project(':document-propagation-example-hello')
+	compile project(':document-propagation-example-world')
 }
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+    repositories {
+    	mavenCentral()
+        jcenter()
+    }
+    
+    compileJava {
+    	options.fork = true
+    	options.incremental = true
+	}
+}
+
