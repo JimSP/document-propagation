@@ -17,7 +17,7 @@ Anotação para habilitar as features de propagação de contratos do swagger:
     @EnableDocumentPropagation
 
 O uso dessa anotação irá gerar automaticamente os contratos do swagger e propagar no cluster.
-Esses contratos ficarão disponíveis no modulo document-propagation-server
+Esses contratos ficarão disponíveis no modulo **document-propagation-server**
 
 #### exemplo:
 
@@ -46,8 +46,37 @@ Esses contratos ficarão disponíveis no modulo document-propagation-server
     }
 
 ### Acessando os contratos centralizados:
-Para acessar os contratos disponíveis no cluster de forma centralizada, basta iniciar o server document-propagation-server e acessar:
-- /swagger-ui.html 
+Para acessar os contratos disponíveis no cluster de forma centralizada, basta iniciar o server **document-propagation-server** e acessar:
+
+**path swagger-ui** 
+- /swagger-ui.html
 
 #### exemplo:
     http://localhost:8000/swagger-ui.html
+
+### Script para montar ambiente de exemplo:
+    #!/usr/bin/env sh
+    
+    ##############################################################################
+    ##
+    ##  document-propagation start up script for UN*X
+    ##
+    ##############################################################################
+    
+    ##clone project
+    git clone https://github.com/JimSP/document-propagation.git
+    
+    ##start microservice hello
+    cd document-propagation/document-propagation-example-hello
+    nohup sh -x ./gradlew bootRun &
+    
+    ##start microservice world
+    cd ../document-propagation-example-world
+    nohup sh -x ./gradlew bootRun &
+    
+    ##start server
+    cd ../document-propagation-server
+    nohup sh -x ./gradlew bootRun &
+    
+    ### open browser
+    x-www-browser http://localhost:8000/swagger-ui.html
