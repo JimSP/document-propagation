@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Configuration
 @EnableConfigurationProperties
-public class SwaggerConfiguration {
+public class SwaggerAutoConfiguration {
 
 	@Value("${br.com.cafebinario.documentpropagation.swagger.title: }")
 	private String title;

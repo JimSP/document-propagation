@@ -24,7 +24,7 @@ import br.com.cafebinario.documentpropagation.domain.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.service.WindowsDetectService;
 
 @Configuration
-public class HazelcastConfiguration {
+public class HazelcastAutoConfiguration {
 
 	private static final String HAZELCAST_INSTANCE_NAME = "DocumentPropagation";
 

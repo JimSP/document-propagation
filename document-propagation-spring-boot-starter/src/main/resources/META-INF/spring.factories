@@ -1,5 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-br.com.cafebinario.documentpropagation.configurations.DocumentCatalogConfiguration,\
-br.com.cafebinario.documentpropagation.configurations.SwaggerConfiguration,\
-br.com.cafebinario.documentpropagation.configurations.HazelcastConfiguration,\
-br.com.cafebinario.documentpropagation.configurations.FeignConfiguration
+br.com.cafebinario.documentpropagation.configurations.DocumentCatalogAutoConfigurationtion,\
+br.com.cafebinario.documentpropagation.configurations.SwaggerAutoConfigurationtion,\
+br.com.cafebinario.documentpropagation.configurations.HazelcastAutoConfigurationtion,\
+br.com.cafebinario.documentpropagation.configurations.FeignAutoConfiguration

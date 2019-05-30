@@ -7,7 +7,7 @@ import br.com.cafebinario.documentpropagation.domain.DocumentCatalog;
 import br.com.cafebinario.documentpropagation.domain.DocumentCatalogResolver;
 
 @Configuration
-public class DocumentCatalogConfiguration {
+public class DocumentCatalogAutoConfiguration {
 
 	@Bean
 	public DocumentCatalogResolver documentCatalogResolver() {

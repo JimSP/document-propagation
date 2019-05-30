@@ -5,6 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableFeignClients("br.com.cafebinario.documentpropagation.clients")
 @Configuration
-public class FeignConfiguration {
+public class FeignAutoConfiguration {
 
 }

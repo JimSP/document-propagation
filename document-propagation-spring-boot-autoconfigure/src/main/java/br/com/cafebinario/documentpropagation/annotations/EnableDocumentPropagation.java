@@ -7,18 +7,18 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Import;
 
-import br.com.cafebinario.documentpropagation.configurations.DocumentCatalogConfiguration;
-import br.com.cafebinario.documentpropagation.configurations.FeignConfiguration;
-import br.com.cafebinario.documentpropagation.configurations.HazelcastConfiguration;
-import br.com.cafebinario.documentpropagation.configurations.SwaggerConfiguration;
+import br.com.cafebinario.documentpropagation.configurations.DocumentCatalogAutoConfiguration;
+import br.com.cafebinario.documentpropagation.configurations.FeignAutoConfiguration;
+import br.com.cafebinario.documentpropagation.configurations.HazelcastAutoConfiguration;
+import br.com.cafebinario.documentpropagation.configurations.SwaggerAutoConfiguration;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import(value = { //
-		SwaggerConfiguration.class, //
-		FeignConfiguration.class, //
-		DocumentCatalogConfiguration.class, //
-		HazelcastConfiguration.class})
+		SwaggerAutoConfiguration.class, //
+		FeignAutoConfiguration.class, //
+		DocumentCatalogAutoConfiguration.class, //
+		HazelcastAutoConfiguration.class})
 public @interface EnableDocumentPropagation {
 
 }
