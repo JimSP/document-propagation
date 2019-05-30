@@ -1,6 +1,13 @@
 package br.com.cafebinario.documentpropagation.configurations;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,20 +16,26 @@ import com.hazelcast.config.JoinConfig;
 import com.hazelcast.config.MapConfig;
 import com.hazelcast.config.MulticastConfig;
 import com.hazelcast.config.NetworkConfig;
+import com.hazelcast.config.TcpIpConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
 import br.com.cafebinario.documentpropagation.domain.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.service.WindowsDetectService;
 
 @Configuration
 public class HazelcastConfiguration {
 
 	private static final String HAZELCAST_INSTANCE_NAME = "DocumentPropagation";
 
+	@Value("${br.com.cafebinario.documentpropagation.cluster.members:localhost:5702,localhost:5703}")
+	private String members;
+
 	@Bean
-	public Config config(@Autowired final DocumentCatalogResolver documentCatalogResolver) {
+	public Config config(@Autowired final DocumentCatalogResolver documentCatalogResolver,
+			@Autowired final WindowsDetectService windowsDetectService) {
 		return new Config(HAZELCAST_INSTANCE_NAME) //
-				.setNetworkConfig(networkConfig()) //
+				.setNetworkConfig(networkConfig(windowsDetectService)) //
 				.addMapConfig(mapConfig(documentCatalogResolver));
 	}
 
@@ -31,14 +44,34 @@ public class HazelcastConfiguration {
 		return Hazelcast.getOrCreateHazelcastInstance(config);
 	}
 
-	private NetworkConfig networkConfig() {
+	private NetworkConfig networkConfig(final WindowsDetectService windowsDetectService) {
 		return new NetworkConfig() //
-				.setJoin(join());
+				.setJoin(join(windowsDetectService));
 	}
 
-	private JoinConfig join() {
+	private JoinConfig join(final WindowsDetectService windowsDetectService) {
+
+		if (windowsDetectService.isWindowsSystemOperational()) {
+			return new JoinConfig() //
+					.setTcpIpConfig(tcpIpConfig()) //
+					.setMulticastConfig(multicastConfig() //
+							.setEnabled(false));
+		}
+
 		return new JoinConfig() //
 				.setMulticastConfig(multicastConfig());
+	}
+
+	private TcpIpConfig tcpIpConfig() {
+
+		return new TcpIpConfig() //
+				.setEnabled(true) //
+				.setMembers(Arrays //
+						.asList(StringUtils.split(members, ",")) //
+						.stream() //
+						.map(StringUtils::trimToNull) //
+						.filter(Objects::nonNull) //
+						.collect(Collectors.toList()));
 	}
 
 	private MulticastConfig multicastConfig() {
