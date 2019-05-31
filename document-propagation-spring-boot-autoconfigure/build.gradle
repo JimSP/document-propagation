@@ -4,13 +4,10 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'java'
-apply plugin: 'eclipse'
 
-jar {
-    baseName = 'document-propagation-example-spring-boot-autoconfigure'
-    version = '0.0.1-SNAPSHOT'
-}
+group = 'br.com.cafebinario'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -18,9 +15,14 @@ configurations {
 	}
 }
 
+repositories {
+	mavenCentral()
+}
+
 ext {
 	set('springCloudVersion', "Greenwich.SR1")
 }
+
 
 dependencies {
 
@@ -31,14 +33,15 @@ dependencies {
 	compile 'io.springfox:springfox-swagger2:2.9.2'
 	compile 'io.springfox:springfox-swagger-ui:2.9.2'
 	
-	compile 'com.hazelcast:hazelcast:3.12'
-	compile 'com.hazelcast:hazelcast-spring:3.12'
+	compile 'com.hazelcast:hazelcast:3.8.2'
+	compile 'com.hazelcast:hazelcast-spring:3.8.2'
     
     compile project(':document-propagation-client')
     compile project(':document-propagation-commum')
     
-    compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    
+    annotationProcessor 'org.projectlombok:lombok'
     
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

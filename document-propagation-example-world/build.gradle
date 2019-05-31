@@ -1,44 +1,22 @@
-buildscript {
-    repositories { 
-    	mavenCentral()
-    	jcenter() 
-    }
-    dependencies {
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
-    }
-}
-
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
 	id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'application'
-apply plugin: 'docker'
 
-jar {
-    baseName = 'document-propagation-example-world'
-    version = '0.0.1-SNAPSHOT'
-}
+group = 'br.com.cafebinario'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
-docker {
-    baseImage 'cafebinario/document-propagation-exmaple-world'
-    maintainer 'Alexandre M. S. Lima "alexandre.msl@gmail.com"'
-}
-
-task buildDocker(type: Docker, dependsOn: build) {
-	push = true
-	applicationName = jar.baseName
-	dockerfile = file('docker/Dockerfile')
-	doFirst {
-	copy {
-			from jar
-			into stageDir
-		}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
 	}
+}
+
+repositories {
+	mavenCentral()
 }
 
 dependencies {

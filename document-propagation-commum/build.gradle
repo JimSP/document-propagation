@@ -1,9 +1,13 @@
-plugins {
-	id 'org.springframework.boot' version '2.1.5.RELEASE'
-	id 'java'
+buildscript {
+    repositories { mavenCentral() }
 }
 
-apply plugin: 'io.spring.dependency-management'
+plugins {
+	id "io.spring.dependency-management" version "1.0.5.RELEASE"
+}
+
+ext { springBootVersion = '2.1.5.RELEASE' }
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
@@ -12,11 +16,16 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
+
+repositories { mavenCentral() }
 
 dependencies {
 
@@ -32,4 +41,8 @@ dependencies {
 	
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
 }
