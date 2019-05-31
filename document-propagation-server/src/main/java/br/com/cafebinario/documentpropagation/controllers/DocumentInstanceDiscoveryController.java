@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
-import br.com.cafebinario.documentpropagation.service.DiscoveryService;
+import br.com.cafebinario.documentpropagation.services.DiscoveryService;
 
 @RestController
 public class DocumentInstanceDiscoveryController {

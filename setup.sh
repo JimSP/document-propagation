@@ -20,17 +20,12 @@ echo '======================================================================
 ##clone project
 git clone https://github.com/JimSP/document-propagation.git
 
-##start microservice hello
-cd document-propagation/document-propagation-example-hello
-nohup sh -x ./gradlew bootRun &
+##build project
+cd document-propagation
+./gradlew distDocker
 
-##start microservice world
-cd ../document-propagation-example-world
-nohup sh -x ./gradlew bootRun &
-
-##start server
-cd ../document-propagation-server
-nohup sh -x ./gradlew bootRun &
+##start microservices
+docker-compose up -d
 
 ### open browser
 x-www-browser http://localhost:8000/swagger-ui.html

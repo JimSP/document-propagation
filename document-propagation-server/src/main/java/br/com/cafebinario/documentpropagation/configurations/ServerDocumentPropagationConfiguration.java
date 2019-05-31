@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Primary;
 
 import br.com.cafebinario.documentpropagation.annotations.EnableDocumentPropagation;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
-import br.com.cafebinario.documentpropagation.service.NetworkService;
-import br.com.cafebinario.documentpropagation.service.ServerDocumentService;
+import br.com.cafebinario.documentpropagation.services.NetworkService;
+import br.com.cafebinario.documentpropagation.services.ServerDocumentService;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 

@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import br.com.cafebinario.documentpropagation.clients.SwaggerClient;
-import br.com.cafebinario.documentpropagation.domain.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 import br.com.cafebinario.documentpropagation.runners.SyncronizedDocuments;
-import br.com.cafebinario.documentpropagation.service.DocumentCatalogService;
-import br.com.cafebinario.documentpropagation.service.NetworkService;
 
 @Service
 class SyncronizedDocumentsService implements SyncronizedDocuments {

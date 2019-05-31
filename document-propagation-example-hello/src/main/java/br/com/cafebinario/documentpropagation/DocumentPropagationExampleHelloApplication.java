@@ -22,5 +22,4 @@ public class DocumentPropagationExampleHelloApplication {
 	public @ResponseBody String value() {
 		return "hello";
 	}
-
 }

@@ -3,10 +3,9 @@ package br.com.cafebinario.documentpropagation.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.cafebinario.documentpropagation.domain.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.runners.SyncronizedDocuments;
-import br.com.cafebinario.documentpropagation.service.DocumentCatalogService;
 
 @Service
 public class ClientDocumentService {

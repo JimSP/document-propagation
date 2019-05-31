@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-group = 'document-propagation'
-version = '0.0.1'
+group = 'br.com.cafebinario'
+version = '0.0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -23,9 +23,10 @@ dependencies {
 }
 
 allprojects {
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
 
+	group = 'br.com.cafebinario'
+	version = '0.0.1-SNAPSHOT'
+	
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
 
@@ -39,4 +40,3 @@ allprojects {
     	options.incremental = true
 	}
 }
-

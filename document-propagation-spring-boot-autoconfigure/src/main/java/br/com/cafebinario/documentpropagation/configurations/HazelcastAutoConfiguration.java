@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,20 +19,21 @@ import com.hazelcast.config.TcpIpConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
-import br.com.cafebinario.documentpropagation.domain.DocumentCatalogResolver;
-import br.com.cafebinario.documentpropagation.service.WindowsDetectService;
+import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.services.WindowsDetectService;
 
 @Configuration
 public class HazelcastAutoConfiguration {
 
 	private static final String HAZELCAST_INSTANCE_NAME = "DocumentPropagation";
 
-	@Value("${br.com.cafebinario.documentpropagation.cluster.members:localhost:5702,localhost:5703}")
+	@Value("${br.com.cafebinario.documentpropagation.cluster.members}")
 	private String members;
 
 	@Bean
 	public Config config(@Autowired final DocumentCatalogResolver documentCatalogResolver,
 			@Autowired final WindowsDetectService windowsDetectService) {
+
 		return new Config(HAZELCAST_INSTANCE_NAME) //
 				.setNetworkConfig(networkConfig(windowsDetectService)) //
 				.addMapConfig(mapConfig(documentCatalogResolver));

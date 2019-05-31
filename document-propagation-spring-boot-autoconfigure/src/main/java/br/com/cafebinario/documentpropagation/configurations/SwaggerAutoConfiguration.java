@@ -44,7 +44,7 @@ public class SwaggerAutoConfiguration {
 	
 	@Bean
 	public Docket api() {
-
+		
 		return new Docket(DocumentationType.SWAGGER_2) //
 				.select() //
 				.paths(PathSelectors.regex("/.*")) //

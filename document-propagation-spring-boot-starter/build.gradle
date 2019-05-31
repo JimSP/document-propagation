@@ -4,19 +4,12 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'eclipse'
 
-group = 'br.com.cafebinario'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
-repositories {
-	mavenCentral()
+jar {
+    baseName = 'document-propagation-example-spring-boot-starter'
+    version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
@@ -24,11 +17,10 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter'
 	compile project(':document-propagation-spring-boot-autoconfigure')
 	
-	annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+	annotationProcessor 'org.springframework.boot:spring-boot-autoconfigure-processor'
     
     compile project(':document-propagation-client')
     compile project(':document-propagation-commum')
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-

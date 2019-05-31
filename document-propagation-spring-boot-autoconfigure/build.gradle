@@ -4,10 +4,13 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'eclipse'
 
-group = 'br.com.cafebinario'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+jar {
+    baseName = 'document-propagation-example-spring-boot-autoconfigure'
+    version = '0.0.1-SNAPSHOT'
+}
 
 configurations {
 	compileOnly {
@@ -15,14 +18,9 @@ configurations {
 	}
 }
 
-repositories {
-	mavenCentral()
-}
-
 ext {
 	set('springCloudVersion', "Greenwich.SR1")
 }
-
 
 dependencies {
 
@@ -39,7 +37,8 @@ dependencies {
     compile project(':document-propagation-client')
     compile project(':document-propagation-commum')
     
-    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
     
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
