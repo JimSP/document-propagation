@@ -16,7 +16,7 @@ apply plugin: 'eclipse'
 apply plugin: 'application'
 apply plugin: 'docker'
 
-group = 'br.com.cafebinario'
+group = 'cafebinario'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -34,11 +34,23 @@ repositories {
 
 docker {
     maintainer 'alexandre.msl@gmail.com'
-    baseImage 'cafebinario/document-propagation-server'
-    useApi false
+    useApi true
+    hostUrl 'http://192.168.59.3:2376'
     apiUsername '$springBootVersion'
     apiPassword '$docker.apiPassword'
     apiEmail '$docker.apiEmail'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+	push = true
+	applicationName = jar.baseName
+	dockerfile = file('src/main/docker/Dockerfile')
+	doFirst {
+		copy {
+			from jar
+			into stageDir
+		}
+	}
 }
 
 dependencies {

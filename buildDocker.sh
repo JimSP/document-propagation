@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 ## build project
-./gradlew document-propagation-server:distDocker
-./gradlew document-propagation-example-hello:distDocker
-./gradlew document-propagation-example-world:distDocker
+./gradlew clean
+./gradlew document-propagation-server:distDocker --stacktrace
+./gradlew document-propagation-example-hello:distDocker --stacktrace
+./gradlew document-propagation-example-world:distDocker --stacktrace

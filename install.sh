@@ -1,13 +1,9 @@
 #!/usr/bin/env sh
 
-## clone project
-git clone https://github.com/JimSP/document-propagation.git
-cd document-propagation
-
 ## pull microservices
-sudo docker pull document-propagation-example-server
-sudo docker pull document-propagation-example-hello
-sudo docker pull document-propagation-example-world
+docker pull cafebinario/document-propagation-example-server
+docker pull cafebinario/document-propagation-example-hello
+docker pull cafebinario/document-propagation-example-world
 
 ## start microservices
 sudo docker-compose up -d
