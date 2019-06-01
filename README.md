@@ -55,25 +55,20 @@ Para acessar os contratos disponíveis no cluster de forma centralizada, basta i
     http://localhost:8000/swagger-ui.html
 
 ### Script criar imagens docker
-    #!/usr/bin/env sh
-    
-    ##clone project
-    git clone https://github.com/JimSP/document-propagation.git
-    cd document-propagation
-    
-    ##build project
+#!/usr/bin/env sh
+
+## build project
     ./gradlew document-propagation-server:distDocker
     ./gradlew document-propagation-example-hello:distDocker
     ./gradlew document-propagation-example-world:distDocker
-    
 
 ### Script para instalar e executar microservices
     #!/usr/bin/env sh
     
     ##pull microservices
-    sudo docker pull document-propagation-example-server
-    sudo docker pull document-propagation-example-hello
-    sudo docker pull document-propagation-example-world
+    sudo docker pull cafebinario/document-propagation-example-server
+    sudo docker pull cafebinario/document-propagation-example-hello
+    sudo docker pull cafebinario/document-propagation-example-world
     
     ##start microservices
     sudo docker-compose up -d

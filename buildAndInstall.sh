@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
 ## clone project
-#git clone https://github.com/JimSP/document-propagation.git
-#cd document-propagation
+git clone https://github.com/JimSP/document-propagation.git
+cd document-propagation
 
 ## build projects
 ./gradlew clean build
