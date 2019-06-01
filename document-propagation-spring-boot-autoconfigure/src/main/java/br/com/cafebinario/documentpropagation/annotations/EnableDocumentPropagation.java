@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
 
 import br.com.cafebinario.documentpropagation.configurations.DocumentCatalogAutoConfiguration;
-import br.com.cafebinario.documentpropagation.configurations.FeignAutoConfiguration;
 import br.com.cafebinario.documentpropagation.configurations.HazelcastAutoConfiguration;
 import br.com.cafebinario.documentpropagation.configurations.SwaggerAutoConfiguration;
 
@@ -16,7 +15,6 @@ import br.com.cafebinario.documentpropagation.configurations.SwaggerAutoConfigur
 @Target(ElementType.TYPE)
 @Import(value = { //
 		SwaggerAutoConfiguration.class, //
-		FeignAutoConfiguration.class, //
 		DocumentCatalogAutoConfiguration.class, //
 		HazelcastAutoConfiguration.class})
 public @interface EnableDocumentPropagation {

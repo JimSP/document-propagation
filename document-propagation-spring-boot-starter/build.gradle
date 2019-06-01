@@ -8,6 +8,7 @@ plugins {
 
 ext { springBootVersion = '2.1.5.RELEASE' }
 
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
@@ -30,8 +31,10 @@ repositories { mavenCentral() }
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter'
 	compile project(':document-propagation-spring-boot-autoconfigure')
+	compile project(':document-propagation-commum')
+	compile project(':document-propagation-client')
 }
 
 dependencyManagement {
-    imports { mavenBom('org.springframework.boot:spring-boot-dependencies:${springBootVersion}') }
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
 }
