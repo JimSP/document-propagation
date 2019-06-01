@@ -54,35 +54,47 @@ Para acessar os contratos disponíveis no cluster de forma centralizada, basta i
 #### exemplo:
     http://localhost:8000/swagger-ui.html
 
-### Script para montar ambiente de exemplo:
+### Script criar imagens docker
     #!/usr/bin/env sh
-    
-    echo '======================================================================'
-    echo '          _                                              _            '
-    echo '       __| |  ___    ___  _   _  _ __ ___    ___  _ __  | |_          '
-    echo '      / _` | / _ \  / __|| | | || '_ ` _ \  / _ \| '_ \ | __|         '
-    echo '     | (_| || (_) || (__ | |_| || | | | | ||  __/| | | || |_          '
-    echo '      \__,_| \___/  \___| \__,_||_| |_| |_| \___||_| |_| \__|         '
-    echo '                                                                      '
-    echo ' _ __   _ __   ___   _ __    __ _   __ _   __ _ | |_ (_)  ___   _ __  '
-    echo '| '_ \ | '__| / _ \ | '_ \  / _` | / _` | / _` || __|| | / _ \ | '_ \ '
-    echo '| |_) || |   | (_) || |_) || (_| || (_| || (_| || |_ | || (_) || | | |'
-    echo '| .__/ |_|    \___/ | .__/  \__,_| \__, | \__,_| \__||_| \___/ |_| |_|'
-    echo '|_|                 |_|            |___/                              '
-    echo '                                                                      '
-    echo 'version: 0.0.1                                                        '
-    echo 'release date: 29-05-2019                                              '
-    echo '======================================================================
     
     ##clone project
     git clone https://github.com/JimSP/document-propagation.git
+    cd document-propagation
     
     ##build project
-    cd document-propagation
-    ./gradlew distDocker
+    ./gradlew document-propagation-server:distDocker
+    ./gradlew document-propagation-example-hello:distDocker
+    ./gradlew document-propagation-example-world:distDocker
+    
+
+### Script para instalar e executar microservices
+    #!/usr/bin/env sh
+    
+    ##pull microservices
+    sudo docker pull document-propagation-example-server
+    sudo docker pull document-propagation-example-hello
+    sudo docker pull document-propagation-example-world
     
     ##start microservices
-    docker-compose up -d
+    sudo docker-compose up -d
+    
+    ### open browser
+    x-www-browser http://localhost:8000/swagger-ui.html
+
+### Script para instalar e executar Local.
+    #!/usr/bin/env sh
+    
+    ## clone project
+    git clone https://github.com/JimSP/document-propagation.git
+    cd document-propagation
+    
+    ## build projects
+    ./gradlew clean build
+    
+    ## run microservices
+    nohup ./gradlew document-propagation-server:bootRun &
+    nohup ./gradlew document-propagation-example-hello:bootRun &
+    nohup ./gradlew document-propagation-example-world:bootRun &
     
     ### open browser
     x-www-browser http://localhost:8000/swagger-ui.html

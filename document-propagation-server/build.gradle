@@ -1,13 +1,26 @@
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
 	id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+apply plugin: 'docker'
 
 group = 'br.com.cafebinario'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+mainClassName = 'br.com.cafebinario.documentpropagation.DocumentPropagationApplication'
 
 configurations {
 	compileOnly {
@@ -17,6 +30,16 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+docker {
+    maintainer = 'alexandre.msl@gmail.com'
+    baseImage = 'cafebinario/document-propagation-server'
+    useApi true
+    hostUrl 'http://localhost:2375'
+    apiUsername 'cafebinario'
+    apiPassword 'applek81'
+    apiEmail 'alexandre.msl@gmail.com'
 }
 
 dependencies {

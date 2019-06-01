@@ -1,15 +1,20 @@
 package br.com.cafebinario.documentpropagation.clients;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-@FeignClient(url = "http://localhost:${server.port}", value = "swaggerClient")
-public interface SwaggerClient {
+@Component
+public class SwaggerClient {
 
-	@GetMapping(path = "/{swaggerApi}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody String getDocument(
-			@PathVariable(name = "swaggerApi", required = true) final String swaggerApi);
+	private static final String LOCAL_HOST = "http://localhost";
+
+	@Value("${server.port}")
+	private String serverPort;
+
+	public String getDocument(final String swaggerApiPath) {
+		final RestTemplate restTemplate = new RestTemplate();	
+		return restTemplate.getForObject(LOCAL_HOST + ":" + serverPort + "/" + swaggerApiPath, String.class);
+		
+	}
 }
