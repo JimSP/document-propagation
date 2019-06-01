@@ -1,5 +1,5 @@
 .gradle
-
+/build/
 !gradle/wrapper/gradle-wrapper.jar
 gradle.properties
 
@@ -11,7 +11,7 @@ gradle.properties
 .settings
 .springBeans
 .sts4-cache
-/bin/
+
 
 ### IntelliJ IDEA ###
 .idea
