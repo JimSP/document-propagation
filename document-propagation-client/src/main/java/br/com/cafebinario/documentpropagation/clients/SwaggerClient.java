@@ -23,10 +23,14 @@ public class SwaggerClient {
 		final String url = LOCAL_HOST + ":" + serverPort + "/" + swaggerApiPath;
 		
 		try {
+			
 			final RestTemplate restTemplate = new RestTemplate();
+			
 			return restTemplate.getForObject(url, String.class);
 		}catch (HttpClientErrorException e) {
+			
 			log.warn("m=getDocument, url={}", url, e);
+			
 			return EMPTY;
 		}	
 	}
