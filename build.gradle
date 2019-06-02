@@ -1,15 +1,23 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
-group = 'cafebinario'
-version = '0.0.1-SNAPSHOT'
+archivesBaseName 'document-propagation'
+group 'com.github.jimsp'
+version '0.0.1-SNAPSHOT'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility 1.8
+targetCompatibility 1.8
 
 repositories {
-	mavenCentral()
+	mavenLocal()
+ 	mavenCentral()
 	jcenter()
+}
+
+jar {
+	baseName 'document-propagation'
+	version project.version
 }
 
 dependencies {
@@ -23,20 +31,89 @@ dependencies {
 }
 
 allprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'maven'
+	apply plugin: 'signing'
 
-	group = 'cafebinario'
+	
+	group = 'com.github.jimsp'
 	version = '0.0.1-SNAPSHOT'
 	
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
-
-    repositories {
-    	mavenCentral()
-        jcenter()
-    }
-    
-    compileJava {
-    	options.fork = true
-    	options.incremental = true
+	
+	jar {
+    	baseName project.name
+    	version project.version
 	}
+
+	compileJava {
+    	options.fork true
+    	options.incremental true
+	}
+	
+	repositories {
+		mavenLocal()
+	 	mavenCentral()
+		jcenter()
+	}
+	
+	task sourcesJar(type: Jar) {
+	    classifier = 'sources'
+	    from sourceSets.main.allSource
+	}
+
+	artifacts {
+	    archives sourcesJar
+	}
+	
+	uploadArchives {
+		repositories {
+			mavenDeployer {
+	
+				repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+					authentication(userName: ossrhUsername, password: ossrhPassword)
+		      	}
+	
+				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+					authentication(userName: ossrhUsername, password: ossrhPassword)
+				}
+	
+				pom.project {
+					name project.name
+					version project.version
+					packaging 'jar'
+					description 'propagação de contratos swagger para um centralizador'
+					url 'https://github.com/JimSP/document-propagation'
+	
+					scm {
+						connection 'scm:git:https://github.com/JimSP/document-propagation'
+						developerConnection 'scm:git:https://github.com/JimSP/document-propagation'
+						url 'https://github.com/JimSP/document-propagation'
+					}
+	
+					licenses {
+						license {
+							name 'The Apache License, Version 2.0'
+							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+						}
+					}
+	
+					developers {
+	          			developer {
+							id 'JimSP'
+							name 'Alexandre Moraes'
+							email 'alexandre.msl@gmail.com'
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+subprojects {
+    group 'com.github.jimsp'
+	version '0.0.1-SNAPSHOT'
 }

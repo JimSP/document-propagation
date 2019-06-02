@@ -4,6 +4,10 @@ propagação de contratos do swagger em um cluster hazelcast
 ### Gradle
 Exemplo para propagar APIs de microserviço no cluster:
 
+    repositories {
+        jcenter()
+    }
+
     dependencies {
         ...
 	    compile project(':document-propagation-spring-boot-starter')
