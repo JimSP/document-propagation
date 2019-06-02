@@ -2,12 +2,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-archivesBaseName 'document-propagation'
 group 'com.github.jimsp'
-version '0.0.1-SNAPSHOT'
-
-sourceCompatibility 1.8
-targetCompatibility 1.8
+version '1.0-RELEASE'
 
 repositories {
 	mavenLocal()
@@ -38,7 +34,7 @@ allprojects {
 
 	
 	group = 'com.github.jimsp'
-	version = '0.0.1-SNAPSHOT'
+	version = '1.0-RELEASE'
 	
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
@@ -46,11 +42,6 @@ allprojects {
 	jar {
     	baseName project.name
     	version project.version
-	}
-
-	compileJava {
-    	options.fork true
-    	options.incremental true
 	}
 	
 	repositories {
@@ -115,5 +106,5 @@ allprojects {
 
 subprojects {
     group 'com.github.jimsp'
-	version '0.0.1-SNAPSHOT'
+	version = '1.0-RELEASE'
 }
