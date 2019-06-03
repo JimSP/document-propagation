@@ -94,3 +94,8 @@ Para acessar os contratos disponíveis no cluster de forma centralizada, basta i
     
     ### open browser
     x-www-browser http://localhost:8000/swagger-ui.html
+
+## Metrics
+
+### buildScan
+    https://gradle.com/s/wqhuyyyrdmwpu

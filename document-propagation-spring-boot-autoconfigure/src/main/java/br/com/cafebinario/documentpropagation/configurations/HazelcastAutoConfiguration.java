@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Assert;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.JoinConfig;
@@ -19,7 +20,7 @@ import com.hazelcast.config.TcpIpConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
-import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.services.WindowsDetectService;
 
 @Configuration
@@ -34,6 +35,10 @@ public class HazelcastAutoConfiguration {
 	public Config config(@Autowired final DocumentCatalogResolver documentCatalogResolver,
 			@Autowired final WindowsDetectService windowsDetectService) {
 
+		final String catalogName = documentCatalogResolver.getCatalogName();
+		
+		Assert.hasText(catalogName, "catalogName must not be empty. The return value of DocumentCatalogResolver.getCatalogName() must be a valid text.");
+		
 		return new Config(HAZELCAST_INSTANCE_NAME) //
 				.setNetworkConfig(networkConfig(windowsDetectService)) //
 				.addMapConfig(mapConfig(documentCatalogResolver));

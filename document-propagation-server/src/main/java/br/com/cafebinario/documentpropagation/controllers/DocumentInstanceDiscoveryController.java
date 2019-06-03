@@ -2,6 +2,7 @@ package br.com.cafebinario.documentpropagation.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import br.com.cafebinario.documentpropagation.services.DiscoveryService;
 @RestController
 public class DocumentInstanceDiscoveryController {
 
+	@Autowired
 	private DiscoveryService discoveryService;
 
 	@GetMapping(path = { "/instances" }, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -21,6 +21,8 @@ import br.com.cafebinario.documentpropagation.services.TokenVerificationService;
 @RestController
 public class CentralDocumentController {
 
+	private static final String EMPTY = "{}";
+
 	@Autowired
 	private ServerDocumentService serverDocumentService;
 
@@ -39,7 +41,7 @@ public class CentralDocumentController {
 	}
 
 	@GetMapping(path = "/documents/contents", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody Collection<DocumentDTO> getDocuments(@RequestHeader(name = "token", required = false) final String token) {
+	public @ResponseBody Collection<DocumentDTO> getContentDocuments(@RequestHeader(name = "token", required = false) final String token) {
 
 		final List<String> nestedNames = lookupNames(token);
 
@@ -51,7 +53,7 @@ public class CentralDocumentController {
 
 	@CrossOrigin
 	@GetMapping(path = "/documents/{name}/content", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody String getDocuments(@RequestHeader(name = "token", required = false) final String token,
+	public @ResponseBody String getContentDocumentByName(@RequestHeader(name = "token", required = false) final String token,
 			@PathVariable(name = "name", required = true) final String name) {
 
 		final List<String> nestedNames = lookupNames(token);
@@ -60,7 +62,7 @@ public class CentralDocumentController {
 				.stream() //
 				.map(catalogName -> serverDocumentService.getDocumentByName(catalogName, name)) //
 				.findFirst() //
-				.orElse("");
+				.orElse(EMPTY);
 	}
 
 	private List<String> lookupNames(final String token) {

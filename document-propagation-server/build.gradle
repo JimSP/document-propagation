@@ -11,7 +11,10 @@ buildscript {
 
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
-	id 'java'
+}
+
+plugins {
+	id 'org.sonarqube' version '2.7'
 }
 
 apply plugin: 'io.spring.dependency-management'

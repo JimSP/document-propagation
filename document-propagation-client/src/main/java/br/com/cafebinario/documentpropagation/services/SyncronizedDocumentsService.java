@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import br.com.cafebinario.documentpropagation.clients.SwaggerClient;
-import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 import br.com.cafebinario.documentpropagation.runners.SyncronizedDocuments;
@@ -60,7 +60,7 @@ class SyncronizedDocumentsService implements SyncronizedDocuments {
 		documentCatalogService.remove(documentCatalogResolver.getCatalogName(), getLocalDocument().getDocumentIdentifier());
 	}
 	
-	private String getName(final String hostName) {
+	protected String getName(final String hostName) {
 		
 		return applicationName + "-" + hostName + "-" + serverPort;
 	}

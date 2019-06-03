@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.domains.DocumentCatalog;
-import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
 
 @Service
 public class TokenVerificationService {

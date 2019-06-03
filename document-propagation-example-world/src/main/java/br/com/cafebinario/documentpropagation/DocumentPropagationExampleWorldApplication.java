@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cafebinario.documentpropagation.annotations.EnableDocumentPropagation;
+import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.domains.DocumentCatalog;
-import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
 
 @SpringBootApplication
 @EnableDocumentPropagation

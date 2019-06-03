@@ -5,8 +5,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
-import br.com.cafebinario.documentpropagation.domains.DocumentCatalogResolver;
+import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 
@@ -44,6 +45,8 @@ public class ServerDocumentService {
 	
 	public String getDocumentByName(final String catalogName, final String name) {
 		
+		Assert.hasText(catalogName, "name must not be empty");
+		
 		final Map<RefDocumentDTO, DocumentDTO> documentCatalog = getDocumentCatalog(catalogName);
 		
 		return documentCatalog //
@@ -60,6 +63,8 @@ public class ServerDocumentService {
 	}
 	
 	private Map<RefDocumentDTO, DocumentDTO> getDocumentCatalog(final String catalogName) {
+		
+		Assert.hasText(catalogName, "catalogName must not be empty");
 		
 		return documentCatalogService.getDocumentCatalog(catalogName);
 	}

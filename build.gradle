@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
+apply plugin: 'jacoco'
 
 group 'com.github.jimsp'
 version '1.0-RELEASE'
@@ -17,9 +18,9 @@ jar {
 }
 
 dependencies {
+	compile project(':document-propagation-commum')
 	compile project(':document-propagation-client')
 	compile project(':document-propagation-server')
-    compile project(':document-propagation-commum')
     compile project(':document-propagation-spring-boot-starter')
 	compile project(':document-propagation-spring-boot-autoconfigure')
 	compile project(':document-propagation-example-hello')
@@ -27,11 +28,12 @@ dependencies {
 }
 
 allprojects {
+
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
 	apply plugin: 'maven'
 	apply plugin: 'signing'
-
+	apply plugin: 'jacoco'
 	
 	group = 'com.github.jimsp'
 	version = '1.0-RELEASE'
@@ -50,24 +52,33 @@ allprojects {
 		jcenter()
 	}
 	
+	task javadocJar(type: Jar) {
+   		classifier = 'javadoc'
+    	from javadoc
+	}
+	
 	task sourcesJar(type: Jar) {
 	    classifier = 'sources'
 	    from sourceSets.main.allSource
 	}
 
 	artifacts {
-	    archives sourcesJar
+    	archives javadocJar, sourcesJar
 	}
 	
 	uploadArchives {
 		repositories {
 			mavenDeployer {
+			
+				beforeDeployment {
+					MavenDeployment deployment -> signing.signPom(deployment)
+				}
 	
-				repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
 					authentication(userName: ossrhUsername, password: ossrhPassword)
 		      	}
 	
-				snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
 					authentication(userName: ossrhUsername, password: ossrhPassword)
 				}
 	
@@ -106,5 +117,5 @@ allprojects {
 
 subprojects {
     group 'com.github.jimsp'
-	version = '1.0-RELEASE'
+	version '1.0-RELEASE'
 }

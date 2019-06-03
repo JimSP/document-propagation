@@ -1,5 +1,6 @@
 package br.com.cafebinario.documentpropagation.clients;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -17,14 +18,15 @@ public class SwaggerClient {
 
 	@Value("${server.port}")
 	private String serverPort;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	public String getDocument(final String swaggerApiPath) {
 		
-		final String url = LOCAL_HOST + ":" + serverPort + "/" + swaggerApiPath;
+		final String url = getUrl(swaggerApiPath);
 		
 		try {
-			
-			final RestTemplate restTemplate = new RestTemplate();
 			
 			return restTemplate.getForObject(url, String.class);
 		}catch (HttpClientErrorException e) {
@@ -33,5 +35,9 @@ public class SwaggerClient {
 			
 			return EMPTY;
 		}	
+	}
+
+	protected String getUrl(final String swaggerApiPath) {
+		return  LOCAL_HOST + ":" + serverPort + "/" + swaggerApiPath;
 	}
 }
