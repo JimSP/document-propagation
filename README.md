@@ -99,3 +99,6 @@ Para acessar os contratos disponíveis no cluster de forma centralizada, basta i
 
 ### buildScan
     https://gradle.com/s/wqhuyyyrdmwpu
+
+#### sonarqube
+    https://sonarcloud.io/organizations/jimsp-github/projects
