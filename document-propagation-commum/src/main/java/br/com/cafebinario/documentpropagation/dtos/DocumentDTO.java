@@ -6,11 +6,13 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-@Builder
+@Builder(toBuilder=true)
 @AllArgsConstructor
-public final class DocumentDTO implements Serializable{
+@EqualsAndHashCode(of = "documentIdentifier")
+public final class DocumentDTO implements Serializable {
 
 	private static final long serialVersionUID = 2869895366094660553L;
 

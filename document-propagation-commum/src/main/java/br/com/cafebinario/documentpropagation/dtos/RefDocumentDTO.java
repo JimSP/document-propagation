@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
+@Builder(toBuilder=true)
 @AllArgsConstructor
 public final class RefDocumentDTO implements DocumentKey {
 

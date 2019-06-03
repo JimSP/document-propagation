@@ -1,4 +1,4 @@
-package br.com.cafebinario.documentpropagation.domains;
+package br.com.cafebinario.documentpropagation.core;
 
 import java.util.List;
 

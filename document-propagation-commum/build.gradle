@@ -2,6 +2,10 @@ plugins {
 	id "io.spring.dependency-management" version "1.0.5.RELEASE"
 }
 
+plugins {
+	id 'org.sonarqube' version '2.7'
+}
+
 ext { springBootVersion = '2.1.5.RELEASE' }
 
 configurations {

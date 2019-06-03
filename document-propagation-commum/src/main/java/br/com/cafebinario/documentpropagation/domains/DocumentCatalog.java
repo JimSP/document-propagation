@@ -3,6 +3,8 @@ package br.com.cafebinario.documentpropagation.domains;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
+
 public enum DocumentCatalog implements DocumentCatalogResolver {
 
 	PUBLIC {

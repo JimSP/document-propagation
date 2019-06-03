@@ -10,17 +10,24 @@ import br.com.cafebinario.documentpropagation.exceptions.CannotResolveDocumentNa
 @Service
 public class NetworkService {
 
+	private static final String SEPARATOR = ":";
+	private static final String PROTOCOL = "http://";
+
 	public String getHostName() {
+		
 		try {
-			return InetAddress //
-					.getLocalHost() //
-					.getHostName();
+
+			final InetAddress localHost = InetAddress.getLocalHost();
+			
+			return localHost.getHostName();
 		} catch (UnknownHostException ex) {
+			
 			throw new CannotResolveDocumentName(ex);
 		}
 	}
 
 	public String getUrl(final String host, final Integer port, final String path) {
-		return "http://" + host + ":" + port + path;
+		
+		return PROTOCOL + host + SEPARATOR + port + path;
 	}
 }
