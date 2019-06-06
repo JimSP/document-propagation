@@ -62,15 +62,12 @@ public class ServerDocumentService {
 				.getContent();
 	}
 	
-	private Map<RefDocumentDTO, DocumentDTO> getDocumentCatalog(final String catalogName) {
-		
-		Assert.hasText(catalogName, "catalogName must not be empty");
-		
-		return documentCatalogService.getDocumentCatalog(catalogName);
+	private Map<RefDocumentDTO, DocumentDTO> getDocumentCatalog() {
+		return documentCatalogService.getDocumentCatalog(documentCatalogResolver.getCatalogName());
 	}
 	
-	private Map<RefDocumentDTO, DocumentDTO> getDocumentCatalog() {
-		
-		return documentCatalogService.getDocumentCatalog(documentCatalogResolver.getCatalogName());
+	private Map<RefDocumentDTO, DocumentDTO> getDocumentCatalog(String catalogName) {
+		Assert.hasText(catalogName, "catalogName must not be empty");
+		return documentCatalogService.getDocumentCatalog(catalogName);
 	}
 }

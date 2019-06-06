@@ -7,4 +7,8 @@ public class CannotResolveDocumentName extends RuntimeException{
 	public CannotResolveDocumentName(final Exception ex) {
 		super(ex);
 	}
+
+	public CannotResolveDocumentName() {
+		super();
+	}
 }

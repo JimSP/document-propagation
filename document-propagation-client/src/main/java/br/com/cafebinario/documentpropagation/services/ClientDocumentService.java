@@ -19,6 +19,8 @@ public class ClientDocumentService {
 	public DocumentDTO load(final DocumentCatalogResolver documentCatalogResolver) {
 
 		final DocumentDTO document = syncronizedDocuments.getLocalDocument();
+		
+		documentCatalogService.registerDocumentInstance(document.getDocumentIdentifier());
 
 		return documentCatalogService.putDocument(documentCatalogResolver.getCatalogName(), document);
 	}

@@ -41,7 +41,8 @@ public class HazelcastAutoConfiguration {
 		
 		return new Config(HAZELCAST_INSTANCE_NAME) //
 				.setNetworkConfig(networkConfig(windowsDetectService)) //
-				.addMapConfig(mapConfig(documentCatalogResolver));
+				.addMapConfig(mapConfig(documentCatalogResolver))
+				.addMapConfig(mapConfigBalanceMap());
 	}
 
 	@Bean(destroyMethod = "shutdown")
@@ -91,5 +92,9 @@ public class HazelcastAutoConfiguration {
 
 	private MapConfig mapConfig(final DocumentCatalogResolver documentCatalogResolver) {
 		return new MapConfig(documentCatalogResolver.getCatalogName());
+	}
+	
+	private MapConfig mapConfigBalanceMap() {
+		return new MapConfig("balanceMap");
 	}
 }

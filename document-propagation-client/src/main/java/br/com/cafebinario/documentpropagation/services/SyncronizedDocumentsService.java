@@ -56,8 +56,12 @@ class SyncronizedDocumentsService implements SyncronizedDocuments {
 
 	@Override
 	public void destroy() throws Exception {
-
-		documentCatalogService.remove(documentCatalogResolver.getCatalogName(), getLocalDocument().getDocumentIdentifier());
+		
+		final RefDocumentDTO documentIdentifier = getLocalDocument().getDocumentIdentifier();
+		
+		documentCatalogService.remove("balanceMap", documentIdentifier);
+		
+		documentCatalogService.remove(documentCatalogResolver.getCatalogName(), documentIdentifier);
 	}
 	
 	protected String getName(final String hostName) {
