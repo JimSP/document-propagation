@@ -31,8 +31,8 @@ public class DiscoveryService {
 	private DocumentInstanceDTO createDocumentInstance(final Address address) {
 		return DocumentInstanceDTO //
 				.builder() //
-				.address(address.getHost()) //
-				.hazelcastPort(address.getPort()) //
+				.hostName(address.getHost()) //
+				.port(address.getPort()) //
 				.build();
 	}
 }

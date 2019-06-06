@@ -13,6 +13,7 @@ public class DocumentInstanceDTO implements Serializable{
 
 	private static final long serialVersionUID = -6970183277041024220L;
 
-	private final String address;
-	private final Integer hazelcastPort;
+	private final String applicationName;
+	private final String hostName;
+	private final Integer port;
 }
