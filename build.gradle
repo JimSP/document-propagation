@@ -3,8 +3,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'jacoco'
 
-group 'com.github.jimsp'
-version '1.0-RELEASE'
+group 'br.com.cafebinario'
+version '1.0.0-RELEASE'
 
 repositories {
 	mavenLocal()
@@ -35,8 +35,8 @@ allprojects {
 	apply plugin: 'signing'
 	apply plugin: 'jacoco'
 	
-	group = 'com.github.jimsp'
-	version = '1.0-RELEASE'
+	group = 'br.com.cafebinario'
+	version = '1.0.0-RELEASE'
 	
 	sourceCompatibility = 1.8
 	targetCompatibility = 1.8
@@ -73,57 +73,9 @@ allprojects {
 	dependencies {
 		compile 'br.com.cafebinario:logger-annotation:1.0.0-RELEASE'
 	}
-
-	uploadArchives {
-		repositories {
-			mavenDeployer {
-			
-				beforeDeployment {
-					MavenDeployment deployment -> signing.signPom(deployment)
-				}
-	
-				repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-					authentication(userName: ossrhUsername, password: ossrhPassword)
-		      	}
-	
-				snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-					authentication(userName: ossrhUsername, password: ossrhPassword)
-				}
-	
-				pom.project {
-					name project.name
-					version project.version
-					packaging 'jar'
-					description 'propagação de contratos swagger para um centralizador'
-					url 'https://github.com/JimSP/document-propagation'
-	
-					scm {
-						connection 'scm:git:https://github.com/JimSP/document-propagation'
-						developerConnection 'scm:git:https://github.com/JimSP/document-propagation'
-						url 'https://github.com/JimSP/document-propagation'
-					}
-	
-					licenses {
-						license {
-							name 'The Apache License, Version 2.0'
-							url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-						}
-					}
-	
-					developers {
-	          			developer {
-							id 'JimSP'
-							name 'Alexandre Moraes'
-							email 'alexandre.msl@gmail.com'
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
 subprojects {
-    group 'com.github.jimsp'
-	version '1.0-RELEASE'
+    group 'br.com.cafebinario'
+	version '1.0.0-RELEASE'
 }

@@ -1,34 +1,41 @@
 package br.com.cafebinario.documentpropagation.services;
 
-import static org.junit.Assert.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.hazelcast.core.Cluster;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.Member;
+import com.hazelcast.nio.Address;
 
-import br.com.cafebinario.documentpropagation.configurations.TestConfiguration;
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { TestConfiguration.class })
+@SpringBootTest(classes = DiscoveryService.class)
+@ActiveProfiles("test")
 public class DiscoveryServiceTest {
 
 	@Autowired
 	private DiscoveryService discoveryService;
 
 	@MockBean
-	private HazelcastInstance hazelcastInstance;
+	@Qualifier("mockClientHazelcastInstance")
+	private HazelcastInstance mockClientHazelcastInstance;
 
 	@MockBean
 	private Cluster cluster;
@@ -36,15 +43,24 @@ public class DiscoveryServiceTest {
 	@MockBean
 	private Set<Member> members;
 
-	@Test
-	public void getAllNodes() {
+	@MockBean
+	private Member member;
 
-		Mockito.when(hazelcastInstance.getCluster()).thenReturn(cluster);
+	@Test
+	public void getAllNodes() throws UnknownHostException {
+
+		final Address address = new Address("localhost", 9999);
+
+		Mockito.when(mockClientHazelcastInstance.getCluster()).thenReturn(cluster);
 
 		Mockito.when(cluster.getMembers()).thenReturn(members);
 
+		Mockito.when(members.stream()).thenReturn(StreamSupport.stream(Arrays.asList(member).spliterator(), false));
+
+		Mockito.when(member.getAddress()).thenReturn(address);
+
 		final List<DocumentInstanceDTO> documentInstances = discoveryService.getAllNodes();
 
-		assertNotNull(documentInstances);
+		assertThat(documentInstances).contains(DocumentInstanceDTO.builder().hostName("localhost").port(9999).build());
 	}
 }

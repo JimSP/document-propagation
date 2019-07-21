@@ -21,7 +21,7 @@ import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = LoadBalanceService.class)
 @ActiveProfiles("test")
 public class LoadBalanceServiceTest {
 
@@ -32,8 +32,8 @@ public class LoadBalanceServiceTest {
 
 	@Autowired
 	private LoadBalanceService loadBalanceService;
-	
-	@MockBean(name="hazelcastInstance")
+
+	@MockBean(name = "hazelcastInstance")
 	private HazelcastInstance hazelcastInstance;
 
 	@MockBean
@@ -41,59 +41,53 @@ public class LoadBalanceServiceTest {
 
 	@MockBean
 	private ServerDocumentService serverDocumentService;
-	
+
 	@Test
 	public void chooseElegibleInstance() {
-		
+
 		final RefDocumentDTO instanceA = RefDocumentDTO //
 				.builder() //
 				.name(NAME_INSTANCE_A) //
 				.build();
-		
+
 		final RefDocumentDTO instanceB = RefDocumentDTO //
 				.builder() //
 				.name(NAME_INSTANCE_B) //
 				.build();
-		
+
 		final RefDocumentDTO instanceC = RefDocumentDTO //
 				.builder() //
 				.name(NAME_INSTANCE_C) //
 				.build();
-		
+
 		Mockito //
-			.when(serverDocumentService.listAllRefs()) //
-			.thenReturn(Arrays.asList(instanceA, instanceB, instanceC));
-		
+				.when(serverDocumentService.listAllRefs()) //
+				.thenReturn(Arrays.asList(instanceA, instanceB, instanceC));
+
 		Mockito //
-			.when(hazelcastInstance.getMap("balanceMap")) //
-			.thenReturn(balanceMap);
-		
+				.when(hazelcastInstance.getMap("balanceMap")) //
+				.thenReturn(balanceMap);
+
 		Mockito //
-			.when(balanceMap.get(instanceA)) //
-			.thenReturn(BigInteger.ONE);
-		
+				.when(balanceMap.get(instanceA)) //
+				.thenReturn(BigInteger.ONE);
+
 		Mockito //
-			.when(balanceMap.get(instanceB)) //
-			.thenReturn(BigInteger.TEN);
-		
+				.when(balanceMap.get(instanceB)) //
+				.thenReturn(BigInteger.TEN);
+
 		Mockito //
-			.when(balanceMap.get(instanceC)) //
-			.thenReturn(BigInteger.ONE);
-		
-		
+				.when(balanceMap.get(instanceC)) //
+				.thenReturn(BigInteger.ONE);
+
 		loadBalanceService.chooseElegibleInstance(APPLICATION_NAME);
 		loadBalanceService.chooseElegibleInstance(APPLICATION_NAME);
 		final DocumentInstanceDTO documentInstance3 = loadBalanceService.chooseElegibleInstance(APPLICATION_NAME);
-		
-		final DocumentInstanceDTO expected = DocumentInstanceDTO
-				.builder()
-				.applicationName(APPLICATION_NAME)
-				.hostName("hostC")
-				.port(8080)
-				.build();
-		
+
+		final DocumentInstanceDTO expected = DocumentInstanceDTO.builder().applicationName(APPLICATION_NAME)
+				.hostName("hostC").port(8080).build();
+
 		assertEquals(expected, documentInstance3);
-		
-		
+
 	}
 }

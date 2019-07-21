@@ -31,3 +31,5 @@ checkQualityGate.sh
 
 ### VS Code ###
 .vscode/
+
+java_pid8943.hprof

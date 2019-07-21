@@ -2,6 +2,7 @@ package br.com.cafebinario.documentpropagation.services;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes=ReverseProxyService.class)
 @ActiveProfiles("test")
 public class ReverseProxyServiceTest {
 
@@ -48,8 +49,11 @@ public class ReverseProxyServiceTest {
 		
 		final ResponseEntity<Object> expected = ResponseEntity.accepted().build();
 		
+		final HttpEntity<Object> httpEntity = new HttpEntity<>(payload, httpHeaders);
+		
 		Mockito
-			.when(restTemplate.exchange("http://hostName:5414/", httpMethod, new HttpEntity<>(payload, httpHeaders), Object.class))
+			.when(restTemplate.exchange(new URI("http", null, "hostName", 5414, targetPath,
+					null, null), httpMethod, httpEntity, Object.class))
 			.thenReturn(expected);
 		
 		final ResponseEntity<Object> result = reverseProxyService.reverseProxy(documentInstance, httpMethod, httpHeaders, payload, targetPath, params);

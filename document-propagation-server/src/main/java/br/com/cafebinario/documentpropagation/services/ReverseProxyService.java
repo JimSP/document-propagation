@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -44,7 +45,7 @@ public class ReverseProxyService {
 	}
 	
 	private String httpParamsToQueryString(final Map<String, String> params) {
-
+		
 		return Joiner //
 				.on("&") //
 				.withKeyValueSeparator("=") //
@@ -54,6 +55,11 @@ public class ReverseProxyService {
 	private URI createUri(final String requestUri, final String queryString,
 			final DocumentInstanceDTO documentInstance) throws URISyntaxException {
 
+		if(StringUtils.isAllBlank(queryString)) {
+			return new URI(SCHEMA, null, documentInstance.getHostName(), documentInstance.getPort(), requestUri,
+					null, null);
+		}
+		
 		return new URI(SCHEMA, null, documentInstance.getHostName(), documentInstance.getPort(), requestUri,
 				queryString, null);
 	}

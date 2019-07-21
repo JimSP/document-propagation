@@ -18,7 +18,8 @@ import br.com.cafebinario.documentpropagation.domains.DocumentCatalog;
 @ComponentScan(basePackages="br.com.cafebinario.documentpropagation")
 public class TestConfiguration {
 	
-	@Bean
+	@Bean("mockClientHazelcastInstance")
+	@Primary
 	public HazelcastInstance mockClientHazelcastInstance() {
 		return Mockito.mock(HazelcastInstance.class);
 	}

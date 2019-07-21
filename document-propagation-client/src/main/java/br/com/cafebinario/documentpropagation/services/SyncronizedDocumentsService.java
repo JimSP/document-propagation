@@ -15,7 +15,7 @@ import br.com.cafebinario.logger.Log;
 import br.com.cafebinario.logger.VerboseMode;
 
 @Service
-class SyncronizedDocumentsService implements SyncronizedDocuments {
+public class SyncronizedDocumentsService implements SyncronizedDocuments {
 
 	private static final String SWAGGER_PATH = "v2/api-docs";
 

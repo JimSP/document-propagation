@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.hazelcast.core.HazelcastInstance;
@@ -23,6 +24,7 @@ import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestConfiguration.class })
+@ActiveProfiles("test")
 public class DocumentCatalogServiceTest {
 
 	private static final String CATALOG_NAME = "TEST";

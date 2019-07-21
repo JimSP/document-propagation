@@ -11,7 +11,7 @@ import br.com.cafebinario.logger.Log;
 
 @Component
 @Profile("!test")
-final class SyncronizationLocalDocuments implements CommandLineRunner {
+public class SyncronizationLocalDocuments implements CommandLineRunner {
 
 	@Autowired
 	private ClientDocumentService clientDocumentService;
