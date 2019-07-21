@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cafebinario.documentpropagation.annotations.EnableDocumentPropagation;
 import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.domains.DocumentCatalog;
+import br.com.cafebinario.logger.Log;
+import br.com.cafebinario.logger.VerboseMode;
 
 @SpringBootApplication
 @EnableDocumentPropagation
@@ -22,6 +24,7 @@ public class DocumentPropagationExampleWorldApplication {
 		SpringApplication.run(DocumentPropagationExampleWorldApplication.class, args);
 	}
 
+	@Log(verboseMode=VerboseMode.ON)
 	@GetMapping(path="/world", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String value() {
 		return "world";

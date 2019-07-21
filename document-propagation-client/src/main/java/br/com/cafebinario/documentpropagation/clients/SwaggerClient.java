@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.cafebinario.logger.Log;
+import br.com.cafebinario.logger.VerboseMode;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -22,6 +24,7 @@ public class SwaggerClient {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Log(verboseMode=VerboseMode.ON)
 	public String getDocument(final String swaggerApiPath) {
 		
 		final String url = getUrl(swaggerApiPath);

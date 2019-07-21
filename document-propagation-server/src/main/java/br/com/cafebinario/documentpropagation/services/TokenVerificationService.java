@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.domains.DocumentCatalog;
+import br.com.cafebinario.logger.Log;
 
 @Service
 public class TokenVerificationService {
@@ -15,6 +16,7 @@ public class TokenVerificationService {
 	@Value("#{${br.com.cafebinario.documentproragation.tokens}}")
 	private Map<String, String> tokens;
 
+	@Log
 	public List<String> lookupCatalog(final String token) {
 
 		final DocumentCatalogResolver documentCatalogResolver = getDocumentCatalogResolver(token);

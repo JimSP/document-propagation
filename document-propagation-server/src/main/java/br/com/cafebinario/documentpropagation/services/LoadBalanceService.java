@@ -15,6 +15,7 @@ import com.hazelcast.core.IMap;
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 import br.com.cafebinario.documentpropagation.exceptions.CannotResolveDocumentName;
+import br.com.cafebinario.logger.Log;
 
 @Service
 public class LoadBalanceService {
@@ -25,6 +26,7 @@ public class LoadBalanceService {
 	@Autowired
 	private ServerDocumentService serverDocumentService;
 
+	@Log
 	public DocumentInstanceDTO chooseElegibleInstance(final String applicationName) {
 
 		final List<RefDocumentDTO> documentIdentifiers = listIdentifiers(applicationName);

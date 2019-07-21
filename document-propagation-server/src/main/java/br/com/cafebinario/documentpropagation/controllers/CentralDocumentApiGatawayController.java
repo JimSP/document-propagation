@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 import br.com.cafebinario.documentpropagation.services.LoadBalanceService;
 import br.com.cafebinario.documentpropagation.services.ReverseProxyService;
+import br.com.cafebinario.logger.Log;
+import br.com.cafebinario.logger.LogLevel;
+import br.com.cafebinario.logger.VerboseMode;
 
 @RestController
 public class CentralDocumentApiGatawayController {
@@ -30,6 +33,7 @@ public class CentralDocumentApiGatawayController {
 	@Autowired
 	private LoadBalanceService loadBalanceService;
 
+	@Log
 	@CrossOrigin
 	@RequestMapping(path = "/document-gataway/{applicationName}/{targetPath}", //
 			method = { RequestMethod.DELETE, //

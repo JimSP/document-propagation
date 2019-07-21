@@ -11,6 +11,7 @@ import com.hazelcast.core.Member;
 import com.hazelcast.nio.Address;
 
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
+import br.com.cafebinario.logger.Log;
 
 @Service
 public class DiscoveryService {
@@ -18,6 +19,7 @@ public class DiscoveryService {
 	@Autowired
 	private HazelcastInstance hazelcastInstance;
 
+	@Log
 	public List<DocumentInstanceDTO> getAllNodes() {
 		return hazelcastInstance //
 				.getCluster() //

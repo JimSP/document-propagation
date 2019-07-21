@@ -17,6 +17,7 @@ import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 import br.com.cafebinario.documentpropagation.services.ServerDocumentService;
 import br.com.cafebinario.documentpropagation.services.TokenVerificationService;
+import br.com.cafebinario.logger.Log;
 
 @RestController
 public class CentralDocumentController {
@@ -29,6 +30,7 @@ public class CentralDocumentController {
 	@Autowired
 	private TokenVerificationService tokenVerificationService;
 
+	@Log
 	@GetMapping(path = "/documents", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody Collection<RefDocumentDTO> getRefDocuments(@RequestHeader(name = "token", required = false) final String token) {
 
@@ -40,6 +42,7 @@ public class CentralDocumentController {
 				.collect(Collectors.toList());
 	}
 
+	@Log
 	@GetMapping(path = "/documents/contents", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody Collection<DocumentDTO> getContentDocuments(@RequestHeader(name = "token", required = false) final String token) {
 
@@ -51,6 +54,7 @@ public class CentralDocumentController {
 				.collect(Collectors.toList());
 	}
 
+	@Log
 	@CrossOrigin
 	@GetMapping(path = "/documents/{name}/content", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String getContentDocumentByName(@RequestHeader(name = "token", required = false) final String token,

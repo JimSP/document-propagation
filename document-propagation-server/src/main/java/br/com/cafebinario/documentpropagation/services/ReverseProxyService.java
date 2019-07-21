@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.common.base.Joiner;
 
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
+import br.com.cafebinario.logger.Log;
 
 @Service
 public class ReverseProxyService {
@@ -24,6 +25,7 @@ public class ReverseProxyService {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Log
 	public ResponseEntity<Object> reverseProxy( //
 			final DocumentInstanceDTO documentInstance, //
 			final HttpMethod httpMethod, //
@@ -43,12 +45,10 @@ public class ReverseProxyService {
 	
 	private String httpParamsToQueryString(final Map<String, String> params) {
 
-		final String queryString = Joiner //
+		return Joiner //
 				.on("&") //
 				.withKeyValueSeparator("=") //
 				.join(params);
-
-		return queryString;
 	}
 
 	private URI createUri(final String requestUri, final String queryString,
@@ -62,11 +62,5 @@ public class ReverseProxyService {
 			final Object body) throws URISyntaxException {
 
 		return new HttpEntity<>(body, httpHeaders);
-	}
-
-	private HttpEntity<Object> createHttpEntity(final MultiValueMap<String, String> httpHeaders)
-			throws URISyntaxException {
-
-		return new HttpEntity<>(httpHeaders);
 	}
 }

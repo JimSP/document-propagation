@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.runners.SyncronizedDocuments;
+import br.com.cafebinario.logger.Log;
 
 @Service
 public class ClientDocumentService {
@@ -16,6 +17,7 @@ public class ClientDocumentService {
 	@Autowired
 	private SyncronizedDocuments syncronizedDocuments;
 
+	@Log
 	public DocumentDTO load(final DocumentCatalogResolver documentCatalogResolver) {
 
 		final DocumentDTO document = syncronizedDocuments.getLocalDocument();

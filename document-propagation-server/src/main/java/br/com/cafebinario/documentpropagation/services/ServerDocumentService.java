@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
+import br.com.cafebinario.logger.Log;
 
 @Service
 public class ServerDocumentService {
@@ -22,6 +23,7 @@ public class ServerDocumentService {
 	@Autowired
 	private DocumentCatalogResolver documentCatalogResolver;
 
+	@Log
 	public Collection<RefDocumentDTO> listAllRefs() {
 		
 		final Map<RefDocumentDTO, DocumentDTO> documentCatalog = getDocumentCatalog();
@@ -29,6 +31,7 @@ public class ServerDocumentService {
 		return documentCatalog.keySet();
 	}
 	
+	@Log
 	public Collection<RefDocumentDTO> listAllRefs(final String catalogName) {
 		
 		final Map<RefDocumentDTO, DocumentDTO> documentCatalog = getDocumentCatalog(catalogName);
@@ -36,6 +39,7 @@ public class ServerDocumentService {
 		return documentCatalog.keySet();
 	}
 
+	@Log
 	public Collection<DocumentDTO> listAllDocuments(final String catalogName) {
 		
 		final Map<RefDocumentDTO, DocumentDTO> documentCatalog = getDocumentCatalog(catalogName);
@@ -43,6 +47,7 @@ public class ServerDocumentService {
 		return documentCatalog.values();
 	}
 	
+	@Log
 	public String getDocumentByName(final String catalogName, final String name) {
 		
 		Assert.hasText(catalogName, "name must not be empty");

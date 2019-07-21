@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.services.ClientDocumentService;
+import br.com.cafebinario.logger.Log;
 
 @Component
 @Profile("!test")
@@ -18,6 +19,7 @@ final class SyncronizationLocalDocuments implements CommandLineRunner {
 	@Autowired
 	private DocumentCatalogResolver documentCatalogResolver;
 
+	@Log
 	@Override
 	public void run(String... args) throws Exception {
 

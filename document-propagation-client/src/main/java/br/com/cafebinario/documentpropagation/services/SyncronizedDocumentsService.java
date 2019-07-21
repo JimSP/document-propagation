@@ -11,6 +11,8 @@ import br.com.cafebinario.documentpropagation.core.DocumentCatalogResolver;
 import br.com.cafebinario.documentpropagation.dtos.DocumentDTO;
 import br.com.cafebinario.documentpropagation.dtos.RefDocumentDTO;
 import br.com.cafebinario.documentpropagation.runners.SyncronizedDocuments;
+import br.com.cafebinario.logger.Log;
+import br.com.cafebinario.logger.VerboseMode;
 
 @Service
 class SyncronizedDocumentsService implements SyncronizedDocuments {
@@ -35,6 +37,7 @@ class SyncronizedDocumentsService implements SyncronizedDocuments {
 	@Autowired
 	private DocumentCatalogResolver documentCatalogResolver;
 
+	@Log(verboseMode=VerboseMode.ON)
 	@Override
 	public DocumentDTO getLocalDocument() {
 
@@ -54,6 +57,7 @@ class SyncronizedDocumentsService implements SyncronizedDocuments {
 				.build();
 	}
 
+	@Log
 	@Override
 	public void destroy() throws Exception {
 		

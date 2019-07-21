@@ -6,6 +6,8 @@ import java.net.UnknownHostException;
 import org.springframework.stereotype.Service;
 
 import br.com.cafebinario.documentpropagation.exceptions.CannotResolveDocumentName;
+import br.com.cafebinario.logger.Log;
+import br.com.cafebinario.logger.VerboseMode;
 
 @Service
 public class NetworkService {
@@ -13,6 +15,7 @@ public class NetworkService {
 	private static final String SEPARATOR = ":";
 	private static final String PROTOCOL = "http://";
 
+	@Log(verboseMode=VerboseMode.ON)
 	public String getHostName() {
 		
 		try {
@@ -26,6 +29,7 @@ public class NetworkService {
 		}
 	}
 
+	@Log(verboseMode=VerboseMode.ON)
 	public String getUrl(final String host, final Integer port, final String path) {
 		
 		return PROTOCOL + host + SEPARATOR + port + path;

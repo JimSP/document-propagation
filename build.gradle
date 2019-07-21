@@ -50,6 +50,10 @@ allprojects {
 		mavenLocal()
 	 	mavenCentral()
 		jcenter()
+		
+		maven {
+      		url 'https://raw.github.com/JimSP/artifacts/master'
+    	}
 	}
 	
 	task javadocJar(type: Jar) {
@@ -65,7 +69,11 @@ allprojects {
 	artifacts {
     	archives javadocJar, sourcesJar
 	}
-	
+
+	dependencies {
+		compile 'br.com.cafebinario:logger-annotation:1.0.0-RELEASE'
+	}
+
 	uploadArchives {
 		repositories {
 			mavenDeployer {

@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,12 +16,14 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 import br.com.cafebinario.documentpropagation.services.LoadBalanceService;
@@ -34,7 +37,7 @@ public class CentralDocumentApiGatawayControllerTest {
 	private static final String HOST_NAME = "hostName";
 	private static final String APPLICATION_NAME = "applicationName";
 	private static final URI GET_PATH = URI.create("/document-gataway/applicationName/anything?varA=1&varB=dog");
-	private static final String EXPECTED = "{}";
+	private static final Object EXPECTED = Collections.singletonList(1);
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -63,16 +66,23 @@ public class CentralDocumentApiGatawayControllerTest {
 		params.put("varA", "1");
 		params.put("varB", "dog");
 
-		final LinkedMultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		header.add("keyA", "value");
+		final LinkedMultiValueMap<String, String> httpHeaders = new LinkedMultiValueMap<>();
+		httpHeaders.add("keyA", "value");
+		httpHeaders.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-		Mockito.when(reverseProxyService.reverseProxy(documentInstance, HttpMethod.GET, header, null, "anything", params))
-				.thenReturn(ResponseEntity.ok(EXPECTED));
+		final ResponseEntity<Object> responseEntity = ResponseEntity.ok(EXPECTED);
 
+		Mockito.when(reverseProxyService.reverseProxy(documentInstance, HttpMethod.GET, httpHeaders, null,
+				"anything", params)).thenReturn(responseEntity);
+		
+		final String responseData = new ObjectMapper().writeValueAsString(EXPECTED);
+		
 		mockMvc //
-				.perform(get(GET_PATH).headers(new HttpHeaders(header))) //
+				.perform(get(GET_PATH)
+						.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+						.header("keyA", "value"))
 				.andDo(print()) //
-				.andExpect(content().json(EXPECTED)) //
+				.andExpect(content().json(responseData)) //
 				.andExpect(status().is2xxSuccessful());
 	}
 }

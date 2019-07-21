@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cafebinario.documentpropagation.annotations.EnableDocumentPropagation;
+import br.com.cafebinario.logger.Log;
+import br.com.cafebinario.logger.VerboseMode;
 
 @SpringBootApplication
 @EnableDocumentPropagation
@@ -18,6 +20,7 @@ public class DocumentPropagationExampleHelloApplication {
 		SpringApplication.run(DocumentPropagationExampleHelloApplication.class, args);
 	}
 	
+	@Log(verboseMode=VerboseMode.ON)
 	@GetMapping(path="/hello", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody String value() {
 		return "hello";
