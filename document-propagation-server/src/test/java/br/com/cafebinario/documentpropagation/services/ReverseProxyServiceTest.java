@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,14 +43,14 @@ public class ReverseProxyServiceTest {
 		final MultiValueMap<String, String> httpHeaders = new LinkedMultiValueMap<>();
 		final Object payload = new Object();
 		final String targetPath = "/";
-		final Map<String, String> params = new LinkedHashMap<>();
+		final String params = "";
 		
 		final ResponseEntity<Object> expected = ResponseEntity.accepted().build();
 		
 		final HttpEntity<Object> httpEntity = new HttpEntity<>(payload, httpHeaders);
 		
 		Mockito
-			.when(restTemplate.exchange(new URI("http", null, "hostName", 5414, targetPath,
+			.when(restTemplate.exchange(new URI("http", null, "hostName", 5414, "/",
 					null, null), httpMethod, httpEntity, Object.class))
 			.thenReturn(expected);
 		

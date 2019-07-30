@@ -7,8 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URI;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +34,7 @@ public class CentralDocumentApiGatawayControllerTest {
 	private static final int PORT = 5410;
 	private static final String HOST_NAME = "hostName";
 	private static final String APPLICATION_NAME = "applicationName";
-	private static final URI GET_PATH = URI.create("/document-gataway/applicationName/anything?varA=1&varB=dog");
+	private static final URI GET_PATH = URI.create("/document-gataway/applicationName/anything/a/b/c?varA=1&varB=dog");
 	private static final Object EXPECTED = Collections.singletonList(1);
 
 	@Autowired
@@ -62,9 +60,7 @@ public class CentralDocumentApiGatawayControllerTest {
 				.when(loadBalanceService.chooseElegibleInstance(APPLICATION_NAME)) //
 				.thenReturn(documentInstance);
 
-		final Map<String, String> params = new LinkedHashMap<>();
-		params.put("varA", "1");
-		params.put("varB", "dog");
+		final String queryString = "varA=1&varB=dog";
 
 		final LinkedMultiValueMap<String, String> httpHeaders = new LinkedMultiValueMap<>();
 		httpHeaders.add("keyA", "value");
@@ -73,7 +69,8 @@ public class CentralDocumentApiGatawayControllerTest {
 		final ResponseEntity<Object> responseEntity = ResponseEntity.ok(EXPECTED);
 
 		Mockito.when(reverseProxyService.reverseProxy(documentInstance, HttpMethod.GET, httpHeaders, null,
-				"anything", params)).thenReturn(responseEntity);
+				"/anything/a/b/c" , queryString)) //
+		.thenReturn(responseEntity);
 		
 		final String responseData = new ObjectMapper().writeValueAsString(EXPECTED);
 		

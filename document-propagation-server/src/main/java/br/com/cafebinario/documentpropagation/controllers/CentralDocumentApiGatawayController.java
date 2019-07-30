@@ -1,7 +1,8 @@
 package br.com.cafebinario.documentpropagation.controllers;
 
 import java.net.URISyntaxException;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -14,15 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cafebinario.documentpropagation.dtos.DocumentInstanceDTO;
 import br.com.cafebinario.documentpropagation.services.LoadBalanceService;
 import br.com.cafebinario.documentpropagation.services.ReverseProxyService;
 import br.com.cafebinario.logger.Log;
-import br.com.cafebinario.logger.LogLevel;
-import br.com.cafebinario.logger.VerboseMode;
 
 @RestController
 public class CentralDocumentApiGatawayController {
@@ -35,7 +33,7 @@ public class CentralDocumentApiGatawayController {
 
 	@Log
 	@CrossOrigin
-	@RequestMapping(path = "/document-gataway/{applicationName}/{targetPath}", //
+	@RequestMapping(path = "/document-gataway/{applicationName}/**", //
 			method = { RequestMethod.DELETE, //
 					RequestMethod.GET, //
 					RequestMethod.HEAD, //
@@ -50,12 +48,12 @@ public class CentralDocumentApiGatawayController {
 			final HttpMethod httpMethod,
 			@RequestHeader(required = false) final MultiValueMap<String, String> httpHeaders, //
 			@RequestBody(required=false) final Object payload,
-			@PathVariable(required = true) final String applicationName, //
-			@PathVariable(required = false) final String targetPath, //
-			@RequestParam(required = false) final Map<String, String> params) throws URISyntaxException {
+			@PathVariable(required = true) final String applicationName,
+			final HttpServletRequest httpServletRequest) throws URISyntaxException {
 
 		final DocumentInstanceDTO documentInstance = loadBalanceService.chooseElegibleInstance(applicationName);
-
-		return reverseProxyService.reverseProxy(documentInstance, httpMethod, httpHeaders, payload, targetPath, params);
+		final String targetPath = httpServletRequest.getRequestURI().substring("/document-gataway/".length() + applicationName.length());
+		final String queryString = httpServletRequest.getQueryString();
+		return reverseProxyService.reverseProxy(documentInstance, httpMethod, httpHeaders, payload, targetPath, queryString);
 	}
 }
