@@ -22,7 +22,7 @@ public class ReverseProxyService {
 
 	@Autowired
 	private RestTemplate restTemplate;
-
+	
 	@Log
 	public ResponseEntity<Object> reverseProxy( //
 			final DocumentInstanceDTO documentInstance, //
